@@ -27,6 +27,8 @@ target 'demoapp' do
 #### Usage
 
 ```Swift
+import DeepSellingTracker
+
 let dsTracker = DeepSellingTracker(dsid: 'your-deepselling-id', domainName: 'your-domain-name', token: 'your-token')
 ```
 
