@@ -14,7 +14,7 @@ DeepSelling(底下簡稱ds)用戶端函式庫。其js/android SDK, 請參考底�
 
 ```podfile
 
-source 'https://github.com/footprintai/deepselling-ios.git'
+source 'https://<USERNAME>:<PASSWORD>@github.com/footprintai/deepselling-ios.git'
 source 'https://github.com/CocoPods/Specs.git'
 
 target 'demoapp' do
@@ -33,9 +33,20 @@ let dsTracker = DeepSellingTracker(dsid: 'your-deepselling-id', domainName: 'you
 ```
 
 #### Function Signature
-```Swfit
-dsTracker.track(action, <json-params>)
-```
-其action與json-params請參考[文檔](./README.md#資料參數)
 
-建議用[SwiftJSON](https://github.com/SwiftyJSON/SwiftyJSON)作為JSON處理函式庫。
+```Swift
+let params = JsonParams()
+dsTracker.track('action', params)
+```
+
+資料參數設定可參考此`params.swift`
+
+```Swift
+
+struct JsonParams: Codeable {
+    ...
+}
+
+```
+
+其action與json-params請參考[文檔](./README.md#資料參數)。

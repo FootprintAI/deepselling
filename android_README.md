@@ -18,7 +18,7 @@ repositories {
         url = uri("https://maven.pkg.github.com/footprintai/deepselling-android")
         credentials {
             username = <USERNAME>
-            password = <TOKEN>
+            password = <PASSWORD>
         }
     }
 }
@@ -50,11 +50,13 @@ public class YourApplication extends DeepSellingApplication {
     
     @Override
     public void onCreate() {
-    	onInitTracker();
+        super.onCreate();
+
+        onInitTracker();
     }
     private void onInitTracker() {
-    	...
-    	// Track this app install, this will only trigger once per app version.
+        ...
+        // Track this app install, this will only trigger once per app version.
         TrackHelper.track().download().identifier(new DownloadTracker.Extra.ApkChecksum(this)).with(getTracker());
        ...
     }
@@ -77,14 +79,34 @@ public class DemoActivity extends AppCompatActivity {
     
     protected void onCreate(Bundle savedInstanceState) {
 
-		...
-		
-		findViewById(R.id.trackMainScreenViewButton).setOnClickListener(v ->
-                TrackHelper.track(new TrackMe().setJSON('<json-params>').with(getTracker())
+        ...
+        JsonParams params = new JsonParams();
+        findViewById(R.id.trackMainScreenViewButton).setOnClickListener(v ->
+                TrackHelper.track(new TrackMe().setAction('action').setParams(params).with(getTracker())
         );
-		
-		...
+        ...
     }
+}
+```
+
+
+資料參數設定可參考此`params.java`
+
+```java
+
+import org.deepselling.sdk.extra.JSONMarshaller;
+
+import com.google.gson.Gson;
+// for import gson, please refer to https://github.com/google/gson
+
+public class JsonParams implements JSONMarshaller {
+  ...
+
+  @Override
+  public toJSON() String {
+    return new Gson().toJson(this);
+  }
+  ...
 }
 ```
 其action與json-params請參考[文檔](./README.md#資料參數)
